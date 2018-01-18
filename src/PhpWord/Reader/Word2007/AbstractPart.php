@@ -144,7 +144,8 @@ abstract class AbstractPart
             foreach ($nodes as $node) {
                 $textContent .= $xmlReader->getValue('w:t', $node);
             }
-            $parent->addListItem($textContent, $levelId, null, "PHPWordList{$numId}", $paragraphStyle);
+			$fontStyle = $this->readFontStyle($xmlReader, $domNode);
+            $parent->addListItem($textContent, $levelId, $fontStyle, "PHPWordList{$numId}", $paragraphStyle);
         } elseif (!empty($headingMatches)) {
             // Heading
             $textContent = '';
