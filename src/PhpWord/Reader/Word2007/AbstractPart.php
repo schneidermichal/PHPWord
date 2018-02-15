@@ -231,6 +231,21 @@ abstract class AbstractPart
                     $textContent = "&lt;Object: {$target}>";
                     $parent->addText($textContent, $fontStyle, $paragraphStyle);
                 }
+			} elseif ($xmlReader->elementExists('w:sym', $domNode)) {
+            	$char = $xmlReader->getAttribute('w:char', $domNode, 'w:sym');
+            	switch ($char) {
+					case 'F0C6':
+						$parent->addText('&empty;', $fontStyle, $paragraphStyle);
+						break;
+					case 'F066':
+						$parent->addText('&empty;', $fontStyle, $paragraphStyle);
+						break;
+					case 'F0B0':
+						$parent->addText('°', $fontStyle, $paragraphStyle);
+						break;
+					default:
+						Debugger::log($char, 'cards');
+				}
             } elseif ($domNode->nodeName === 'w:smartTag') {
                 $textContent = $xmlReader->getValue('w:r/w:t', $domNode);
                 $parent->addText($textContent, $fontStyle, $paragraphStyle);
